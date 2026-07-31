@@ -142,3 +142,19 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ),
 }
+
+# CELERY VA REDIS SOZLAMALARI
+# Redis'ga ulanish uchun url havola (Docker muhit o'zgaruvchilaridan olamiz)
+CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://redis:6379/0')
+CELERY_RESULT_BACKEND = os.getenv('REDIS_URL', 'redis://redis:6379/0')
+
+# Rejalashtirilgan vazifalarni aniq bajarish uchun vaqt mintaqasi sozlamasi
+CELERY_TIME_ZONE = TIME_ZONE
+
+# Optimallashtirish: kerak bo'lmasa, standart vazifalar natijalarini saqlamaslik (Redis xotirasini tejaydi)
+CELERY_TASK_IGNORE_RESULT = True
+
+# Navbatlar ichidagi ma'lumotlar almashinuv formati - json
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
